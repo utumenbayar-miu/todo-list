@@ -1,5 +1,6 @@
 # Todo List
 
+```
 App (root component)
 ├─ TodoAdd
 ├─ TodoList
@@ -7,3 +8,4 @@ App (root component)
 │     ├─ TodoDeleteButton
 |     ├─ TodoEdit
 └─ TodoFooter
+```
