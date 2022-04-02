@@ -6,26 +6,6 @@ import TodoAdd from "./components/TodoAdd";
 export default class App extends React.Component {
   state = {
     todoItems: ["my task 1", "task2", "my task 3"],
-    todoItemsJson: [
-      {
-        id: 1,
-        task: "my task 1",
-        isDeleted: 0,
-        createdAt: new Date(),
-      },
-      {
-        id: 2,
-        task: "task2",
-        isDeleted: 0,
-        createdAt: new Date(),
-      },
-      {
-        id: 3,
-        task: "task3",
-        isDeleted: 1,
-        createdAt: new Date(),
-      },
-    ],
     somethingDisplayInFooter: "Dummy footer data",
     showList: true,
   };
