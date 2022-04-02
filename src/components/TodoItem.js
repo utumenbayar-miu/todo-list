@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import TodoDeleteButton from "./TodoDeleteButton";
-import TodoEditButton from "./TodoEditButton";
+import TodoEdit from "./TodoEdit";
 
 export default class TodoItem extends Component {
   render() {
     return (
       <div>
         <p>
-          TodoItem: <b>{this.props.todoItem}</b>
+          id: <b>{this.props.todoItem.id}</b>, task:{" "}
+          <b>{this.props.todoItem.task}</b>, user:{" "}
+          <b>{this.props.todoItem.username}</b>
           <TodoDeleteButton
             deleteItem={this.props.deleteItem}
-            index={this.props.index}
+            id={this.props.todoItem.id}
           />
-          <TodoEditButton
+          <TodoEdit
             editItem={this.props.editItem}
-            index={this.props.index}
+            id={this.props.todoItem.id}
           />
         </p>
       </div>

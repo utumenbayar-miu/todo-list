@@ -1,16 +1,24 @@
 import React, { Component } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default class TodoAdd extends Component {
   state = {
     task: "",
+    username: "",
   };
 
   addTask = () => {
-    this.props.addTask(this.state.task);
+    this.props.addItem({
+      id: uuidv4(),
+      task: this.state.task,
+      username: this.state.username,
+      isDeleted: 0,
+    });
+    this.setState({ task: "", username: "" });
   };
 
-  taskChanged = (event) => {
-    this.setState({ task: event.target.value });
+  myOnChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
@@ -19,8 +27,15 @@ export default class TodoAdd extends Component {
         <h3>AddItem</h3>
         <input
           name='task'
+          placeholder='task'
           value={this.state.task}
-          onChange={(event) => this.taskChanged(event)}
+          onChange={(event) => this.myOnChange(event)}
+        />
+        <input
+          name='username'
+          placeholder='username'
+          value={this.state.username}
+          onChange={(event) => this.myOnChange(event)}
         />
         <button onClick={this.addTask}>Add task</button>
       </div>

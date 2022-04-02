@@ -5,55 +5,72 @@ import TodoAdd from "./components/TodoAdd";
 
 export default class App extends React.Component {
   state = {
-    todoItems: ["my task 1", "task2", "my task 3"],
-    todoItemsJson: [
+    todoItems: [
       {
         id: 1,
         task: "my task 1",
+        username: "user1",
         isDeleted: 0,
-        createdAt: new Date(),
       },
       {
         id: 2,
         task: "task2",
+        username: "user2",
         isDeleted: 0,
-        createdAt: new Date(),
       },
       {
         id: 3,
         task: "task3",
+        username: "user3",
         isDeleted: 1,
-        createdAt: new Date(),
       },
     ],
-    somethingDisplayInFooter: "Dummy footer data",
+    somethingInFooter: "Dummy footer data",
     showList: true,
   };
 
-  addTask = (task) => {
+  addItem = (task) => {
     const todoItems = [...this.state.todoItems];
     todoItems.push(task);
     this.setState({ todoItems });
   };
 
-  deleteItem = (index) => {
+  deleteItem = (id) => {
     const todoItems = [...this.state.todoItems];
-    todoItems.splice(index, 1);
+    let index = this.findIndexById(id);
+    const deletedItem = { ...todoItems[index] };
+    deletedItem.isDeleted = 1;
+    todoItems[index] = deletedItem;
     this.setState({ todoItems });
   };
 
-  editItem = (index, newTask) => {
+  editItem = (newTask) => {
     const todoItems = [...this.state.todoItems];
-    todoItems[index] = newTask;
+    let index = this.findIndexById(newTask.id);
+    const taskUpdated = { ...todoItems[index] };
+    taskUpdated.task = newTask.task;
+    taskUpdated.username = newTask.username;
+    todoItems[index] = taskUpdated;
     this.setState({ todoItems });
+  };
+
+  findIndexById = (id) => {
+    let index = -1;
+    for (let i = 0; i < this.state.todoItems.length; i++) {
+      if (this.state.todoItems[i].id === id) {
+        index = i;
+        break;
+      }
+    }
+    return index;
   };
 
   render() {
-    const { todoItems, showList, somethingDisplayInFooter } = this.state;
+    const { todoItems, showList, somethingInFooter } = this.state;
     return (
       <div style={{ paddingLeft: "25px" }}>
         <h3>It is the app component</h3>
-        <TodoAdd addTask={this.addTask} />
+        <TodoAdd addItem={this.addItem} />
         <button
           onClick={() => {
             this.setState({ showList: !showList });
@@ -66,8 +83,7 @@ export default class App extends React.Component {
             deleteItem={this.deleteItem}
             editItem={this.editItem}></TodoList>
         )}
-        <TodoFooter
-          somethingDisplayInFooter={somethingDisplayInFooter}></TodoFooter>
+        <TodoFooter somethingInFooter={somethingInFooter}></TodoFooter>
       </div>
     );
   }
